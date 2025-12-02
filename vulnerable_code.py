@@ -1,16 +1,16 @@
-app_config = {
-    "DEBUG": True,  # Bandit поймает это (B201)
-    "SECRET_KEY": "my-hardcoded-secret-key-123456",  # Bandit поймает это (B105)
-}
+# Critical security issues for demonstration
+DEBUG = True  # Bandit: B201 - flask_debug_true
+SECRET_KEY = "my-hardcoded-secret-key-123456789"  # Bandit: B105 - hardcoded_password_string
 
 def unsafe_sql_query(user_id):
-    # SQL injection vulnerability (B608)
-    query = f"SELECT * FROM users WHERE id = {user_id}"
+    # SQL injection vulnerability
+    query = f"SELECT * FROM users WHERE id = {user_id}"  # Bandit: B608 - hardcoded_sql_expressions
     return query
 
-def unsafe_eval(code):
-    # Dangerous function (B307)
-    result = eval(code)
+def execute_arbitrary_code(code):
+    # Dangerous code execution
+    result = eval(code)  # Bandit: B307 - blacklist
     return result
 
-print("Проверка работоспособности кода")
+# Hardcoded credentials
+DB_PASSWORD = "SuperAdminPassword123!"  # Another B105
