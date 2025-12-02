@@ -4,10 +4,18 @@ exclude_dirs:
   - __pycache__
   - node_modules
   - venv
+  - env
+  - .venv
+  - myenv
+  - instance
+  - static
+  - templates
 
-include:
-  - app.py
-  - tests/test_security.py
-
+# Только high severity
 severity-level: high
 confidence-level: high
+
+# Формат вывода
+output_format: screen
+quiet: false
+verbose: false

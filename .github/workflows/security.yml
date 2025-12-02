@@ -15,14 +15,27 @@ jobs:
       - name: Install Bandit
         run: pip install bandit
       
-      - name: Scan Python files
+      - name: Run Bandit scan
         run: |
-          echo "Scanning Python files..."
-          # Сканируем только app.py и тесты
-          bandit app.py tests/test_security.py --severity-level high
+          echo "Scanning project files..."
+          
+          # Сканируем ТОЛЬКО наши файлы
+          if [ -f ".bandit" ]; then
+            bandit -c .bandit .
+          else
+            bandit app.py tests/test_security.py --severity-level high
+          fi
           
           if [ $? -ne 0 ]; then
-            echo "::error::Security issues found!"
+            echo "::error::MERGE BLOCKED: Security vulnerabilities found!"
+            exit 1
+          fi
+      
+      - name: Check debug mode
+        run: |
+          echo "Checking debug mode..."
+          if grep -q "debug\s*=\s*True" app.py; then
+            echo "::error::MERGE BLOCKED: debug=True found!"
             exit 1
           fi
       
