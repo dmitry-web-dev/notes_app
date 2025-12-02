@@ -11,17 +11,11 @@ exclude_dirs:
   - static
   - templates
 
-skips:
-  - B311  # random
-  - B413  # pycrypto
-  - B303  # md5
-  - B324  # hashlib
-  - B410  # lxml
-  - B411  # xmlrpc
-
+# Только high severity
 severity-level: high
 confidence-level: high
 
+# Формат вывода
 output_format: screen
 quiet: false
 verbose: false
