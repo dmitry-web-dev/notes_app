@@ -10,7 +10,7 @@ jobs:
       
       - uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+           python-version: '3.10'
       
       - name: Install Bandit
         run: pip install bandit
@@ -38,3 +38,13 @@ jobs:
             echo "::error::MERGE BLOCKED: debug=True found!"
             exit 1
           fi
+      
+      - name: Check debug mode
+        run: |
+          echo "Checking debug mode..."
+          # Только app.py
+          if grep -q "debug\s*=\s*True" app.py; then
+            echo "::error::debug=True found!"
+            exit 1
+          fi
+          echo "✅ Debug check passed"
