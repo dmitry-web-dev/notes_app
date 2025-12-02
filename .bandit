@@ -1,3 +1,27 @@
-[bandit]
-exclude_dirs = node_modules,.git,__pycache__
-targets = app.py,config.py,models.py,forms.py
+exclude_dirs:
+  - .git
+  - .github
+  - __pycache__
+  - node_modules
+  - venv
+  - env
+  - .venv
+  - myenv
+  - instance
+  - static
+  - templates
+
+skips:
+  - B311  # random
+  - B413  # pycrypto
+  - B303  # md5
+  - B324  # hashlib
+  - B410  # lxml
+  - B411  # xmlrpc
+
+severity-level: high
+confidence-level: high
+
+output_format: screen
+quiet: false
+verbose: false

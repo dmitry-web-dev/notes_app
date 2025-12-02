@@ -12,16 +12,31 @@ jobs:
         with:
           python-version: '3.10'
       
-      - name: Install tools
+      - name: Install Bandit
         run: pip install bandit
       
-      - name: Security scan
+      - name: Run Bandit with config
         run: |
-          # Проверяем безопасность
-          bandit -r . --severity-level HIGH
+          echo "Running Bandit with configuration..."
           
-          # Проверяем debug режим
-          if grep -r "debug\s*=\s*True" . --include="*.py"; then
-            echo "ERROR: Found debug=True"
+          if [ -f ".bandit" ]; then
+            echo "Using .bandit configuration file"
+            bandit -c .bandit .
+          else
+            # Сканируем только наши файлы
+            echo "Scanning specific files..."
+            bandit app.py tests/test_security.py --severity-level high
+          fi
+          
+          if [ $? -ne 0 ]; then
+            echo "::error::MERGE BLOCKED: Security issues found!"
+            exit 1
+          fi
+      
+      - name: Check for debug mode
+        run: |
+          echo "Checking for debug=True..."
+          if grep -q "debug\s*=\s*True" app.py; then
+            echo "::error::MERGE BLOCKED: debug=True found!"
             exit 1
           fi

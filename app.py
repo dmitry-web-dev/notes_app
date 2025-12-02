@@ -543,7 +543,7 @@ def run_with_flask_https():
     ssl_context = create_ssl_context()
     if ssl_context:
         print("📝 Приложение доступно по адресу: https://localhost:8443")
-        app.run(host='0.0.0.0', port=8443, ssl_context=ssl_context, debug=False)
+        app.run(host='0.0.0.0', port=8443, ssl_context=ssl_context, debug=True)
     else:
         print("❌ Не удалось запустить с HTTPS. Запускаем с HTTP...")
         run_with_flask_http()
@@ -552,7 +552,7 @@ def run_with_flask_http():
     """Запуск приложения через Flask с HTTP"""
     print("🚀 Запуск Flask с HTTP...")
     print("📝 Приложение доступно по адресу: http://localhost:8080")
-    app.run(host='0.0.0.0', port=8080, debug=False)
+    app.run(host='0.0.0.0', port=8080, debug=True)
 
 def run_with_nginx_proxy():
     """Рекомендуемый способ: Waitress + nginx reverse proxy"""
