@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Управление заметками{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="header">
+        <h1>{% block header %}Управление заметками{% endblock %}</h1>
+        <div class="user-info">
+            {% if session.username %}
+                <span>Вы вошли как: <strong>{{ session.username }}</strong></span>
+                <a href="{{ url_for('profile') }}" class="btn">Профиль</a>
+                <a href="{{ url_for('logout') }}" class="btn">Выйти</a>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="btn">Войти</a>
+                <a href="{{ url_for('register') }}" class="btn">Регистрация</a>
+            {% endif %}
+        </div>
+    </header>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

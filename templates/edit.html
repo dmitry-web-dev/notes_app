@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Редактирование заметки{% endblock %}
+{% block header %}Редактирование заметки{% endblock %}
+
+{% block content %}
+    <form method="POST">
+        <div class="form-group">
+            <label class="form-label">Заголовок:</label>
+            <input type="text" name="title" class="form-input" value="{{ note.title }}" required maxlength="100">
+        </div>
+        <div class="form-group">
+            <label class="form-label">Содержание:</label>
+            <textarea name="content" class="form-textarea" rows="4" required>{{ note.content }}</textarea>
+        </div>
+        <button type="submit" class="btn">Сохранить</button>
+        <a href="{{ url_for('index') }}">
+            <button type="button" class="btn">Отмена</button>
+        </a>
+    </form>
+{% endblock %}

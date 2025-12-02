@@ -1,0 +1,3 @@
+[bandit]
+exclude_dirs = node_modules,.git,__pycache__
+targets = app.py,config.py,models.py,forms.py
