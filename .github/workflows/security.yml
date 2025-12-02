@@ -1,0 +1,9 @@
+﻿name: Security Demo
+on: [pull_request]
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: pip install bandit
+      - run: bandit vulnerable.py --severity-level high
