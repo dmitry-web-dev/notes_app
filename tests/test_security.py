@@ -26,3 +26,4 @@ def test_no_debug_mode():
 def test_basic_security():
     """Базовый тест безопасности"""
     assert True, "Security test passed"
+    

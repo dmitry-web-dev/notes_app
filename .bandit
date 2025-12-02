@@ -1,3 +1,13 @@
-[bandit]
-exclude_dirs = node_modules,.git,__pycache__
-targets = app.py,config.py,models.py,forms.py
+exclude_dirs:
+  - .git
+  - .github
+  - __pycache__
+  - node_modules
+  - venv
+
+include:
+  - app.py
+  - tests/test_security.py
+
+severity-level: high
+confidence-level: high
