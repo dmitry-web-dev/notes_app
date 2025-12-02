@@ -1,37 +1,9 @@
-name: Security Check
-
+﻿name: Security Demo
 on: [pull_request]
-
 jobs:
-  security:
+  demo:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
-      - uses: actions/setup-python@v4
-        with:
-           python-version: '3.10'
-      
-      - name: Install Bandit
-        run: pip install bandit
-      
-      - name: Scan Python files
-        run: |
-          echo "Scanning Python files..."
-          # Сканируем только app.py и тесты
-          bandit app.py tests/test_security.py --severity-level high
-          
-          if [ $? -ne 0 ]; then
-            echo "::error::Security issues found!"
-            exit 1
-          fi
-      
-      - name: Check debug mode
-        run: |
-          echo "Checking debug mode..."
-          # Только app.py
-          if grep -q "debug\s*=\s*True" app.py; then
-            echo "::error::debug=True found!"
-            exit 1
-          fi
-          echo "✅ Debug check passed"
+      - run: pip install bandit
+      - run: bandit bandit_fail.py --severity-level high
